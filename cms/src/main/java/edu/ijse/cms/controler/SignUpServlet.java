@@ -1,6 +1,8 @@
 package edu.ijse.cms.controler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.ijse.cms.dto.UserDto;
+import edu.ijse.cms.model.SignUpModel;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -37,45 +39,46 @@ public class SignUpServlet extends HttpServlet {
 //        ObjectMapper mapper = new ObjectMapper();
 //        Map <String , String> map = mapper.readValue(req.getInputStream(), Map.class);
 
-        String userId = req.getParameter("userId");
-        String userName = req.getParameter("userName");
-        String userEmail = req.getParameter("userEmail");
-        String userRoll = req.getParameter("userRoll");
-        String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("confirmPassword");
+        UserDto user = new UserDto();
 
-        System.out.println(userName + "\n" + userEmail + "\n" + userRoll + "\n" + password + "\n" + confirmPassword);
+        user.setUserId(req.getParameter("userId"));
+        user.setUserName(req.getParameter("userName"));
+        user.setUserEmail(req.getParameter("userEmail"));
+        user.setUserRoll(req.getParameter("userRoll"));
+        user.setPassword(req.getParameter("password"));
+        user.setConfirmPassword(req.getParameter("confirmPassword"));
+        boolean result = false;
+        if (req.getParameter("password").equals(req.getParameter("confirmPassword"))) {
 
-        try {
-            Connection connection = dataSource.getConnection();
-
-            int i = 0;
-
-            if (password.equals(confirmPassword)) {
-                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?, ?)");
-                preparedStatement.setString(1, userId);
-                preparedStatement.setString(2, userName);
-                preparedStatement.setString(3, userEmail);
-                preparedStatement.setString(4, userRoll);
-                preparedStatement.setString(5, password);
-
-                if (password.equals(confirmPassword)) {
-                    i = preparedStatement.executeUpdate();
-                }
-
-                else {
-                    System.out.println("invalid password");
-                }
-
+            Connection connection = null;
+            try {
+                connection = dataSource.getConnection();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            SignUpModel signUpModel = new  SignUpModel();
+            try {
+                result = signUpModel.saveUser(connection,user);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
-            if(i>0) {
-                System.out.println("added successfully");
+            PrintWriter out = resp.getWriter();
+            if (result) {
+                out.print("Success");
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.sendRedirect("addComplaint.jsp");
+                req.setAttribute("message", "User registered successfully!");
+                System.out.println("Added successfully");
             } else {
-                System.out.println("failed");
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                req.setAttribute("message", "Failed to register user.");
+                System.out.println("Failed to added ");
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        }
+        else {
+            System.out.println("Invalid password");
         }
 
     }
