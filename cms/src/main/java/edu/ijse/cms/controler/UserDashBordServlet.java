@@ -28,9 +28,13 @@ public class UserDashBordServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")
     DataSource dataSource;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("UserDashBordServlet");
+    UserDashBordModel userDashBordModel = new UserDashBordModel();
+    UserDto user = new UserDto();
+    ComplainDTO complainDTO = new ComplainDTO();
+    String currentUser;
+
+    void setCurrentUser(String name) {
+        currentUser = name;
     }
 
     @Override
@@ -50,7 +54,6 @@ public class UserDashBordServlet extends HttpServlet {
             SignInModel signInModel = new SignInModel();
             ResultSet rs = signInModel.getUser(userName, connection);
 
-            UserDto user = new UserDto();
 
             List<UserDto> userList = new ArrayList<>();
 
@@ -62,21 +65,33 @@ public class UserDashBordServlet extends HttpServlet {
                 user.setPassword(rs.getString("password"));
             }
 
-            ComplainDTO complainDTO = new ComplainDTO();
-            complainDTO.setUserName(user.getUserName());
-            complainDTO.setUserEmail(user.getUserEmail());
-            complainDTO.setSubject(subject);
-            complainDTO.setMessage(massage);
+            if (userName.equals(user.getUserName())) {
 
-            UserDashBordModel userDashBordModel = new UserDashBordModel();
-            boolean result = userDashBordModel.addComplaint(complainDTO,connection);
 
-            if (result) {
-                System.out.println("Complaint added");
-            }
+                complainDTO.setUserName(userName);
+                complainDTO.setUserEmail(user.getUserEmail());
+                complainDTO.setSubject(subject);
+                complainDTO.setMessage(massage);
 
-            else {
-                System.out.println("Complaint not added");
+                if (complainDTO.getSubject().equals("") || complainDTO.getMessage().equals("")) {
+                    System.out.println("fill all fields");
+                }
+
+                else {
+
+                    boolean result = userDashBordModel.addComplaint(complainDTO, connection);
+
+                    if (result) {
+                        System.out.println("Complaint added");
+                    } else {
+                        System.out.println("Complaint not added");
+                    }
+
+                }
+
+                setCurrentUser(userName);
+            } else {
+                System.out.println("Username not matched");
             }
 
 

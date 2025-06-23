@@ -25,6 +25,7 @@ public class SignInServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")
     DataSource dataSource;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userEmail = request.getParameter("userEmail");
         String userPassword = request.getParameter("userPassword");
@@ -73,7 +74,6 @@ public class SignInServlet extends HttpServlet {
         } else {
             System.out.println("Incorrect password");
         }
-
 
 
         } catch (SQLException e) {
