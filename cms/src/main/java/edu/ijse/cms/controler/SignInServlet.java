@@ -25,12 +25,9 @@ public class SignInServlet extends HttpServlet {
     @Resource(name = "java:comp/env/jdbc/pool")
     DataSource dataSource;
 
-    String email;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userEmail = request.getParameter("userEmail");
         String userPassword = request.getParameter("userPassword");
-
-        email = userEmail;
 
         System.out.println("userEmail: " + userEmail);
         System.out.println("userPassword: " + userPassword);
@@ -82,9 +79,5 @@ public class SignInServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public String getUserEmail() {
-        return this.email;
     }
 }

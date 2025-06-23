@@ -10,8 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd3f7b5f-9978-4e41-bf5f-0c80b961874e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Complaint_Management_System_Web_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Complaint_Management_System_Web_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cms/src/main/java/edu/ijse/cms/controler/SignInServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/cms/src/main/java/edu/ijse/cms/controler/SignInServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cms/src/main/java/edu/ijse/cms/controler/UserDashBordServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/cms/src/main/java/edu/ijse/cms/controler/UserDashBordServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cms/src/main/java/edu/ijse/cms/model/SignInModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/cms/src/main/java/edu/ijse/cms/model/SignInModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +61,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
@@ -175,7 +178,8 @@
       <updated>1750317312979</updated>
       <workItem from="1750317314291" duration="1843000" />
       <workItem from="1750322213602" duration="2537000" />
-      <workItem from="1750338454299" duration="30178000" />
+      <workItem from="1750338454299" duration="30851000" />
+      <workItem from="1750662089986" duration="5616000" />
     </task>
     <servers />
   </component>
